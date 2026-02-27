@@ -5,7 +5,8 @@ const connectDB = require('./config/db');
 const http = require('http');
 const { Server } = require('socket.io');
 const authRoutes = require('./routes/authRoutes');
-const { simulateMarket } = require('./services/marketService');
+const marketRoutes = require('./routes/marketRoutes');
+const { broadcastMarketData } = require('./services/marketService');
 const { generateFinancialAdvice } = require('./services/aiService');
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/market', marketRoutes);
 
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
@@ -52,5 +54,5 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-simulateMarket(io);
+broadcastMarketData(io);
 module.exports = { io };
