@@ -23,3 +23,33 @@ exports.register = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+// controllers/authController.js
+// ... (keep your register code from before)
+
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // 1. Find user by email
+        const user = await User.findOne({ email });
+        if (!user) return res.status(400).json({ message: "Invalid Credentials" });
+
+        // 2. Compare passwords
+        const isMatch = await bcrypt.compare(password, user.passwordHash);
+        if (!isMatch) return res.status(400).json({ message: "Invalid Credentials" });
+
+        // 3. Create a JWT Token
+        const token = jwt.sign(
+            { id: user._id }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '1d' }
+        );
+
+        res.json({
+            token,
+            user: { id: user._id, name: user.name, email: user.email, balance: user.balance }
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
