@@ -7,7 +7,7 @@ import { PieChart, Pie, Cell } from "recharts";
 import { io as socketIO } from "socket.io-client";
 
 // Backend API base URL
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:10000';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://tradelab-2.onrender.com';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DESIGN TOKENS
