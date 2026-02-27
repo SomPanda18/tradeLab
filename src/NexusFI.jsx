@@ -1157,9 +1157,10 @@ function AssessmentPage() {
 // ─────────────────────────────────────────────────────────────────────────────
 // NAV
 // ─────────────────────────────────────────────────────────────────────────────
-function Nav({ activePage, onNavigate, alertCount = 0, alertHistory = [], onClearUnread }) {
+function Nav({ activePage, onNavigate, alertCount = 0, alertHistory = [], user, onLogout, onAuthTrigger, onClearUnread }) {
   const [scrolled, setScrolled] = useState(false);
   const [bellOpen, setBellOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const bellRef = useRef(null);
 
