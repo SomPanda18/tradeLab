@@ -107,6 +107,100 @@ function formatQuoteToIndex(quote) {
   };
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// AUTH MODAL COMPONENT
+// ─────────────────────────────────────────────────────────────────────────────
+function AuthModal({ isOpen, onClose, onAuthSuccess, initialMode = 'login' }) {
+  const [mode, setMode] = useState(initialMode);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+
+  if (!isOpen) return null;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const endpoint = mode === 'login' ? '/api/auth/login' : '/api/auth/register';
+    const payload = mode === 'login'
+      ? { email: formData.email, password: formData.password }
+      : { name: formData.name, email: formData.email, password: formData.password };
+
+    try {
+      const res = await fetch(`${API_BASE}${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || "Authentication failed");
+
+      if (mode === 'login') {
+        onAuthSuccess(data.user, data.token);
+        onClose();
+      } else {
+        setMode('login');
+        setError("Account created! Please login.");
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 10000, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.8)", backdropFilter: "blur(8px)", animation: "fadeIn 0.3s ease" }}>
+      <div onClick={onClose} style={{ position: "absolute", inset: 0 }} />
+      <Reveal>
+        <GlassCard accentColor={T.emerald} style={{ width: 380, padding: 32, position: "relative", animation: "fadeInUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)" }}>
+          <button onClick={onClose} style={{ position: "absolute", top: 20, right: 20, background: "none", border: "none", color: T.textDim, cursor: "pointer", fontSize: 18 }}>×</button>
+
+          <div style={{ textAlign: "center", marginBottom: 28 }}>
+            <div style={{ width: 48, height: 48, borderRadius: 12, background: `linear-gradient(135deg,${T.emerald},${T.emeraldDk})`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", boxShadow: `0 0 30px ${T.emerald}44`, fontSize: 22 }}>⚡</div>
+            <h2 style={{ fontSize: 24, fontWeight: 800, fontFamily: T.fontDisp, marginBottom: 6 }}>{mode === 'login' ? 'Welcome Back' : 'Join NexusFI'}</h2>
+            <p style={{ fontSize: 11, color: T.textDim }}>{mode === 'login' ? 'Enter your credentials to access your alpha.' : 'Start your journey to financial intelligence.'}</p>
+          </div>
+
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {mode === 'signup' && (
+              <div>
+                <label style={{ fontSize: 9, color: T.textDim, letterSpacing: "0.1em", display: "block", marginBottom: 6 }}>FULL NAME</label>
+                <input required type="text" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}
+                  style={{ width: "100%", padding: "12px 14px", borderRadius: 10, background: "rgba(255,255,255,0.05)", border: `1px solid ${T.border}`, color: T.text, fontSize: 12, outline: "none" }} placeholder="John Doe" />
+              </div>
+            )}
+            <div>
+              <label style={{ fontSize: 9, color: T.textDim, letterSpacing: "0.1em", display: "block", marginBottom: 6 }}>EMAIL ADDRESS</label>
+              <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
+                style={{ width: "100%", padding: "12px 14px", borderRadius: 10, background: "rgba(255,255,255,0.05)", border: `1px solid ${T.border}`, color: T.text, fontSize: 12, outline: "none" }} placeholder="nexus@example.com" />
+            </div>
+            <div>
+              <label style={{ fontSize: 9, color: T.textDim, letterSpacing: "0.1em", display: "block", marginBottom: 6 }}>PASSWORD</label>
+              <input required type="password" value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })}
+                style={{ width: "100%", padding: "12px 14px", borderRadius: 10, background: "rgba(255,255,255,0.05)", border: `1px solid ${T.border}`, color: T.text, fontSize: 12, outline: "none" }} placeholder="••••••••" />
+            </div>
+
+            {error && <div style={{ fontSize: 10, color: T.red, textAlign: "center", padding: "8px", background: "rgba(239,68,68,0.05)", borderRadius: 8, border: "1px solid rgba(239,68,68,0.15)" }}>{error}</div>}
+
+            <button disabled={loading} type="submit" style={{ marginTop: 8, padding: "14px", borderRadius: 10, background: `linear-gradient(135deg,${T.emerald},${T.emeraldDk})`, border: "none", color: "#000", fontWeight: 700, fontSize: 13, cursor: loading ? "default" : "pointer", boxShadow: `0 10px 20px ${T.emerald}33`, transition: "all 0.2s", opacity: loading ? 0.7 : 1 }}>
+              {loading ? 'PROCESSING...' : mode === 'login' ? 'LOGIN' : 'SIGN UP'}
+            </button>
+          </form>
+
+          <div style={{ textAlign: "center", marginTop: 24, fontSize: 11, color: T.textDim }}>
+            {mode === 'login' ? "Don't have an account? " : "Already have an account? "}
+            <span onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError(""); }} style={{ color: T.emerald, cursor: "pointer", fontWeight: 600 }}>{mode === 'login' ? 'Register Now' : 'Login'}</span>
+          </div>
+        </GlassCard>
+      </Reveal>
+    </div>
+  );
+}
+
 const CHART_DATA = Array.from({ length: 48 }, (_, i) => {
   const h = (9 + Math.floor(i / 2)) % 24, m = i % 2 === 0 ? "00" : "30";
   return { t: `${h}:${m}`, price: 5750 + Math.sin(i * 0.4) * 80 + i * 2.1 + (Math.random() - 0.46) * 30 };
@@ -1092,175 +1186,87 @@ function Nav({ activePage, onNavigate, alertCount = 0, alertHistory = [], onClea
     return () => document.removeEventListener("mousedown", handler);
   }, [bellOpen]);
 
-  const openBell = () => {
-    setBellOpen(b => !b);
-    setUnreadCount(0);
-  };
-
-  const timeAgo = (ts) => {
-    const s = Math.floor((Date.now() - ts) / 1000);
-    if (s < 60) return `${s}s ago`;
-    if (s < 3600) return `${Math.floor(s / 60)}m ago`;
-    return `${Math.floor(s / 3600)}h ago`;
-  };
-
-  const pages = ["HOME", "MARKETS", "LEARN", "ASSESSMENT", "PORTFOLIO", "AI STRATEGY"];
-  const pageKeys = ["home", "markets", "learn", "assessment", "portfolio", "ai"];
+  const items = [
+    { p: "home", l: "HOME" },
+    { p: "markets", l: "MARKETS" },
+    { p: "portfolio", l: "PORTFOLIO" },
+    { p: "learn", l: "LEARN" },
+    { p: "ai", l: "AI STRATEGY" },
+  ];
 
   return (
-    <nav style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-      padding: "0 40px", height: 64,
-      display: "flex", alignItems: "center", justifyContent: "space-between",
-      background: scrolled ? "rgba(10,10,12,0.92)" : "transparent",
-      backdropFilter: scrolled ? "blur(20px)" : "none",
-      borderBottom: scrolled ? `1px solid ${T.border}` : "none",
-      transition: "all 0.4s ease", fontFamily: T.font,
-    }}>
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, height: 64, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", background: scrolled ? "rgba(10,10,12,0.85)" : "transparent", backdropFilter: scrolled ? "blur(12px)" : "none", borderBottom: scrolled ? `1px solid ${T.border}` : "1px solid transparent", transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}>
       {/* Logo */}
-      <div onClick={() => onNavigate("home")} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
-        <div style={{ width: 32, height: 32, borderRadius: 8, background: `linear-gradient(135deg,${T.emerald},${T.emeraldDk})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "#000", boxShadow: `0 0 20px ${T.emerald}66`, fontFamily: T.fontDisp }}>N</div>
-        <span style={{ fontSize: 17, fontWeight: 700, letterSpacing: "0.12em", color: T.text, fontFamily: T.fontDisp }}>NEXUS<span style={{ color: T.emerald }}>FI</span></span>
+      <div onClick={() => onNavigate("home")} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", transition: "transform 0.2s" }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.02)"} onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}>
+        <div style={{ width: 28, height: 28, borderRadius: 8, background: `linear-gradient(135deg,${T.emerald},${T.emeraldDk})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, color: "#111", fontFamily: T.fontDisp, boxShadow: `0 0 15px ${T.emerald}33` }}>N</div>
+        <span style={{ fontSize: 15, fontWeight: 800, letterSpacing: "0.08em", fontFamily: T.fontDisp, background: `linear-gradient(90deg, #fff 0%, #aaa 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>NEXUS<span style={{ color: T.emerald, WebkitTextFillColor: T.emerald }}>FI</span></span>
       </div>
 
-      {/* Links */}
-      <div style={{ display: "flex", gap: 28, fontSize: 10, letterSpacing: "0.14em" }}>
-        {pages.map((label, i) => (
-          <span key={label} onClick={() => onNavigate(pageKeys[i])} style={{
-            cursor: "pointer", transition: "color 0.2s", position: "relative",
-            color: activePage === pageKeys[i] ? T.emerald : T.textMid,
-            paddingBottom: 2,
-          }}>
-            {label}
-            {activePage === pageKeys[i] && <div style={{ position: "absolute", bottom: -4, left: 0, right: 0, height: 1, background: T.emerald, borderRadius: 1 }} />}
-          </span>
+      {/* Center items */}
+      <div style={{ display: "flex", gap: 24, position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
+        {items.map(m => (
+          <div key={m.p} onClick={() => onNavigate(m.p)}
+            style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", color: activePage === m.p ? T.emerald : T.textDim, cursor: "pointer", transition: "all 0.2s", position: "relative", padding: "6px 0" }}
+            onMouseEnter={e => { e.target.style.color = T.text; }}
+            onMouseLeave={e => { if (activePage !== m.p) e.target.style.color = T.textDim; }}>
+            {m.l}
+            {activePage === m.p && (
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 2, background: T.emerald, borderRadius: 10, animation: "badgePop 0.3s ease" }} />
+            )}
+          </div>
         ))}
       </div>
 
-      {/* Right: Bell + Connect */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-
-        {/* Bell — always visible, shows unread badge */}
-        <div ref={bellRef} style={{ position: "relative" }}>
-          <div onClick={openBell} style={{
-            width: 36, height: 36, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
-            background: bellOpen ? "rgba(239,68,68,0.14)" : alertHistory.length > 0 ? "rgba(239,68,68,0.08)" : "rgba(255,255,255,0.05)",
-            border: `1px solid ${bellOpen ? "rgba(239,68,68,0.5)" : alertHistory.length > 0 ? "rgba(239,68,68,0.25)" : T.border}`,
-            cursor: "pointer", transition: "all 0.2s",
-            animation: unreadCount > 0 ? "bellShake 0.5s ease" : "none",
-          }}>
-            <IcoBell size={15} color={alertHistory.length > 0 ? T.red : T.textMid} />
+      {/* Right */}
+      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        {/* Alerts Bell */}
+        <div style={{ position: "relative" }}>
+          <div onClick={() => setBellOpen(!bellOpen)} style={{ cursor: "pointer", color: alertCount > 0 ? T.emerald : T.textMid, position: "relative", animation: alertCount > 0 ? "bellShake 3s infinite" : "" }}>
+            <IcoBell size={18} />
+            {alertCount > 0 && (
+              <div style={{ position: "absolute", top: -4, right: -4, width: 14, height: 14, borderRadius: "50%", background: T.red, border: `2px solid #0a0a0c`, animation: "badgePop 0.3s ease" }} />
+            )}
           </div>
-
-          {/* Unread badge */}
-          {unreadCount > 0 && (
-            <div style={{
-              position: "absolute", top: -4, right: -4,
-              minWidth: 16, height: 16, borderRadius: 8,
-              background: T.red, color: "#fff",
-              fontSize: 8, fontWeight: 700, fontFamily: T.fontDisp,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              padding: "0 4px",
-              animation: "badgePop 0.3s cubic-bezier(0.16,1,0.3,1)",
-              border: "2px solid #0a0a0c",
-              boxShadow: `0 0 8px ${T.red}88`,
-            }}>{unreadCount > 9 ? "9+" : unreadCount}</div>
-          )}
-
-          {/* Dropdown panel */}
           {bellOpen && (
-            <div style={{
-              position: "absolute", top: 44, right: 0,
-              width: 340, maxHeight: 440,
-              background: "rgba(10,10,12,0.97)", border: `1px solid ${T.border}`,
-              borderRadius: 16, overflow: "hidden",
-              backdropFilter: "blur(24px)",
-              boxShadow: "0 24px 80px rgba(0,0,0,0.7), 0 0 40px rgba(239,68,68,0.1)",
-              animation: "fadeInUp 0.25s cubic-bezier(0.16,1,0.3,1)",
-              zIndex: 200, fontFamily: T.font,
-            }}>
-              {/* Panel header */}
-              <div style={{ padding: "14px 16px 12px", borderBottom: `1px solid ${T.border}`, display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(239,68,68,0.05)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <IcoAlert size={12} color={T.red} />
-                  <span style={{ fontSize: 9, letterSpacing: "0.16em", color: T.text, fontWeight: 700 }}>CRITICAL ALERTS</span>
-                  <span style={{ padding: "1px 6px", borderRadius: 4, background: "rgba(239,68,68,0.15)", border: "1px solid rgba(239,68,68,0.3)", fontSize: 8, color: T.red, fontWeight: 700 }}>{alertHistory.length}</span>
-                </div>
-                <span style={{ fontSize: 8, letterSpacing: "0.1em", color: T.textDim }}>HIGH IMPACT ONLY</span>
-              </div>
-
-              {/* Notification list */}
-              <div style={{ overflowY: "auto", maxHeight: 370 }}>
-                {alertHistory.length === 0 ? (
-                  <div style={{ padding: "32px 20px", textAlign: "center" }}>
-                    <div style={{ fontSize: 24, marginBottom: 8 }}>🔕</div>
-                    <div style={{ fontSize: 10, color: T.textDim, letterSpacing: "0.1em" }}>NO ALERTS YET</div>
-                    <div style={{ fontSize: 9, color: "#333", marginTop: 4, lineHeight: 1.6 }}>Only critical market events<br />will appear here</div>
-                  </div>
-                ) : alertHistory.map((ev, i) => (
-                  <div key={`${ev.uid}-${i}`} style={{
-                    padding: "12px 16px",
-                    borderBottom: `1px solid rgba(255,255,255,0.04)`,
-                    background: i === 0 ? `${ev.color}06` : "transparent",
-                    transition: "background 0.2s", cursor: "default",
-                    position: "relative", overflow: "hidden",
-                  }}
-                    onMouseEnter={e => e.currentTarget.style.background = `${ev.color}08`}
-                    onMouseLeave={e => e.currentTarget.style.background = i === 0 ? `${ev.color}06` : "transparent"}>
-
-                    {/* Left severity bar */}
-                    <div style={{ position: "absolute", left: 0, top: 10, bottom: 10, width: 2, borderRadius: 2, background: ev.color }} />
-
-                    <div style={{ paddingLeft: 10 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8, marginBottom: 5 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                          <span style={{ fontSize: 13 }}>{ev.icon}</span>
-                          <div>
-                            <div style={{ fontSize: 9, fontWeight: 700, color: ev.color, letterSpacing: "0.1em", marginBottom: 1 }}>{ev.severity} · {ev.category}</div>
-                            <div style={{ fontSize: 11, fontWeight: 700, color: T.text, fontFamily: T.fontDisp, lineHeight: 1.3 }}>{ev.title}</div>
-                          </div>
-                        </div>
-                        <span style={{ fontSize: 8, color: T.textDim, whiteSpace: "nowrap", flexShrink: 0 }}>{ev.firedAt ? timeAgo(ev.firedAt) : "just now"}</span>
-                      </div>
-
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
-                        <div style={{ fontSize: 8, color: T.textDim }}>
-                          <span style={{ color: "#555" }}>IMPACT </span>
-                          <span style={{ color: ev.color, fontWeight: 700 }}>{ev.impact}</span>
-                        </div>
-                        <div style={{ fontSize: 8, color: T.textDim }}>
-                          <span style={{ color: "#555" }}>ACTION </span>
-                          <span style={{ color: T.amber, fontWeight: 700 }}>{ev.action}</span>
-                        </div>
-                      </div>
-
-                      <div style={{ marginTop: 5, fontSize: 8, color: "#555", letterSpacing: "0.06em" }}>
-                        Affected: <span style={{ color: "#777" }}>{ev.affected}</span>
-                      </div>
+            <div style={{ position: "absolute", top: 30, right: 0, width: 300, background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 16, padding: 16, boxShadow: "0 20px 40px rgba(0,0,0,0.4)", animation: "fadeInDown 0.2s ease" }}>
+              <div style={{ fontSize: 9, color: T.textDim, marginBottom: 12, letterSpacing: "0.1em" }}>RECENT ALERTS</div>
+              {alertHistory.length === 0 ? (
+                <div style={{ fontSize: 10, color: T.textDim, textAlign: "center", padding: 12 }}>No active alerts</div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {alertHistory.slice(0, 4).map(h => (
+                    <div key={h.uid} style={{ padding: 10, background: "rgba(255,255,255,0.02)", borderRadius: 8, border: `1px solid ${T.border}` }}>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: h.urgency >= 8 ? T.red : T.amber, marginBottom: 2 }}>{h.title}</div>
+                      <div style={{ fontSize: 8, color: T.textMid }}>{h.desc}</div>
                     </div>
-
-                    {/* "NEW" tag for first item */}
-                    {i === 0 && (
-                      <div style={{ position: "absolute", top: 10, right: 12, padding: "1px 6px", borderRadius: 3, background: `${ev.color}20`, border: `1px solid ${ev.color}50`, fontSize: 7, fontWeight: 700, color: ev.color, letterSpacing: "0.12em" }}>NEW</div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Footer */}
-              {alertHistory.length > 0 && (
-                <div style={{ padding: "10px 16px", borderTop: `1px solid ${T.border}`, display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(255,255,255,0.01)" }}>
-                  <span style={{ fontSize: 8, color: T.textDim, letterSpacing: "0.08em" }}>{alertHistory.length} event{alertHistory.length !== 1 ? "s" : ""} logged this session</span>
-                  <span onClick={() => onNavigate("markets")} style={{ fontSize: 8, color: T.emerald, cursor: "pointer", letterSpacing: "0.1em" }}>VIEW MARKETS →</span>
+                  ))}
                 </div>
               )}
             </div>
           )}
         </div>
 
-        <button style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 16px", borderRadius: 10, background: "rgba(255,255,255,0.05)", border: `1px solid ${T.border}`, color: T.text, fontSize: 11, letterSpacing: "0.08em", cursor: "pointer", fontFamily: T.font }}>
-          <IcoGoogle /> Connect Google
-        </button>
+        {user ? (
+          <div style={{ position: "relative" }}>
+            <div onClick={() => setProfileOpen(!profileOpen)} style={{ display: "flex", alignItems: "center", gap: 10, padding: "6px 14px", background: "rgba(16,185,129,0.05)", border: `1px solid rgba(16,185,129,0.2)`, borderRadius: 30, cursor: "pointer" }}>
+              <div style={{ width: 20, height: 20, borderRadius: "50%", background: `linear-gradient(135deg,${T.emerald},${T.emeraldDk})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 800, color: "#000" }}>{user.name.charAt(0)}</div>
+              <span style={{ fontSize: 10, fontWeight: 700, color: T.emerald }}>{user.name.toUpperCase()}</span>
+            </div>
+            {profileOpen && (
+              <div style={{ position: "absolute", top: 40, right: 0, width: 180, background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 12, padding: 8, boxShadow: "0 20px 40px rgba(0,0,0,0.4)", animation: "fadeInDown 0.2s ease" }}>
+                <div style={{ padding: "10px 12px", borderBottom: `1px solid ${T.border}`, marginBottom: 4 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700 }}>{user.name}</div>
+                  <div style={{ fontSize: 9, color: T.textDim }}>{user.email}</div>
+                </div>
+                <button onClick={onLogout} style={{ width: "100%", textAlign: "left", padding: "8px 12px", background: "none", border: "none", color: T.red, fontSize: 10, fontWeight: 600, cursor: "pointer", borderRadius: 6 }} onMouseEnter={e => e.target.style.background = "rgba(239,68,68,0.05)"} onMouseLeave={e => e.target.style.background = "none"}>LOGOUT</button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button onClick={() => onAuthTrigger()} style={{ padding: "8px 18px", borderRadius: 30, background: "transparent", border: `1px solid ${T.emerald}`, color: T.emerald, fontSize: 10, fontWeight: 700, cursor: "pointer", transition: "all 0.2s" }} onMouseEnter={e => { e.target.style.background = T.emerald; e.target.style.color = "#000"; }} onMouseLeave={e => { e.target.style.background = "transparent"; e.target.style.color = T.emerald; }}>
+            LOGIN / SIGNUP
+          </button>
+        )}
       </div>
     </nav>
   );
@@ -2060,6 +2066,38 @@ export default function NexusFI() {
   const [alertHistory, setAlertHistory] = useState([]);
   const [eventIdx, setEventIdx] = useState(0);
 
+  // Auth State
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const [authModal, setAuthModal] = useState({ open: false, mode: 'login', targetPage: null });
+
+  // Persistence
+  useEffect(() => {
+    const savedToken = localStorage.getItem('nexus_token');
+    const savedUser = localStorage.getItem('nexus_user');
+    if (savedToken && savedUser) {
+      setToken(savedToken);
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  const handleAuthSuccess = (userData, userToken) => {
+    setUser(userData);
+    setToken(userToken);
+    localStorage.setItem('nexus_token', userToken);
+    localStorage.setItem('nexus_user', JSON.stringify(userData));
+    if (authModal.targetPage) navigate(authModal.targetPage);
+    setAuthModal({ ...authModal, open: false }); // Close modal on success
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem('nexus_token');
+    localStorage.removeItem('nexus_user');
+    navigate("home");
+  };
+
   // Only surface CRITICAL / HIGH urgency events (urgency >= 8) as overlay notifications
   const HIGH_IMPACT_EVENTS = DRASTIC_EVENTS.filter(e => e.urgency >= 8);
 
@@ -2092,6 +2130,11 @@ export default function NexusFI() {
   const dismissAlert = (uid) => setActiveAlerts(prev => prev.filter(a => a.uid !== uid));
 
   const navigate = (p) => {
+    const protectedPages = ["markets", "portfolio", "learn", "assessment", "ai"];
+    if (protectedPages.includes(p) && !user) {
+      setAuthModal({ open: true, mode: 'login', targetPage: p });
+      return;
+    }
     setPage(p);
     window.scrollTo(0, 0);
   };
@@ -2113,11 +2156,7 @@ export default function NexusFI() {
         @keyframes pulse       { 0%,100%{opacity:1;box-shadow:0 0 8px currentColor} 50%{opacity:0.5;box-shadow:0 0 3px currentColor} }
         @keyframes bounce      { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
         @keyframes scanline    { 0%{transform:translateY(-100%)} 100%{transform:translateY(100vh)} }
-        @keyframes iconPulse   { 0%,100%{transform:scale(1);box-shadow:0 0 12px currentColor} 50%{transform:scale(1.08);box-shadow:0 0 24px currentColor} }
-        @keyframes flashBorder { 0%,100%{border-color:rgba(239,68,68,0.35)} 50%{border-color:rgba(239,68,68,0.7)} }
         @keyframes slideInRight{ from{opacity:0;transform:translateX(24px) scale(0.96)} to{opacity:1;transform:translateX(0) scale(1)} }
-        @keyframes slideOutRight{ from{opacity:1;transform:translateX(0) scale(1)} to{opacity:0;transform:translateX(32px) scale(0.94)} }
-        @keyframes timerDrain  { from{width:100%} to{width:0%} }
         @keyframes bellShake   { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-14deg)} 40%{transform:rotate(14deg)} 60%{transform:rotate(-8deg)} 80%{transform:rotate(8deg)} }
         @keyframes badgePop    { 0%{transform:scale(0)} 70%{transform:scale(1.2)} 100%{transform:scale(1)} }
       `}</style>
@@ -2133,7 +2172,15 @@ export default function NexusFI() {
         </div>
 
         <div style={{ position: "relative", zIndex: 1 }}>
-          <Nav activePage={page} onNavigate={navigate} alertCount={activeAlerts.length} alertHistory={alertHistory} onClearUnread={() => { }} />
+          <Nav
+            activePage={page}
+            onNavigate={navigate}
+            alertCount={activeAlerts.length}
+            alertHistory={alertHistory}
+            user={user}
+            onLogout={handleLogout}
+            onAuthTrigger={() => setAuthModal({ open: true, mode: 'login', targetPage: null })}
+          />
 
           {page === "home" && <HomePage onNavigate={navigate} />}
           {page === "markets" && <MarketsPage onTriggerAlert={fireAlert} alertCount={activeAlerts.length} />}
@@ -2144,6 +2191,14 @@ export default function NexusFI() {
 
           {page !== "ai" && <Footer onNavigate={navigate} />}
         </div>
+
+        {/* Auth Modal */}
+        <AuthModal
+          isOpen={authModal.open}
+          mode={authModal.mode}
+          onClose={() => setAuthModal({ ...authModal, open: false })}
+          onAuthSuccess={handleAuthSuccess}
+        />
 
         {/* Alert overlays — auto-dismiss after 7s */}
         {activeAlerts.map((ev, i) => (
