@@ -48,7 +48,14 @@ const IcoBell     = (p) => <Ico {...p} d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-
 const IcoInfo     = (p) => <Ico {...p} d="M12 16v-4M12 8h.01M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/>;
 const IcoSend     = (p) => <Ico {...p} d="M22 2 11 13M22 2 15 22 11 13 2 9l20-7z"/>;
 const IcoAward    = (p) => <Ico {...p} d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM8.21 13.89 7 23l5-3 5 3-1.21-9.12"/>;
-const IcoSparkles = (p) => <Ico {...p} d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>;
+const IcoSparkles   = (p) => <Ico {...p} d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>;
+const IcoTarget     = (p) => <Ico {...p} d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>;
+const IcoBrain2     = (p) => <Ico {...p} d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/>;
+const IcoCheck      = (p) => <Ico {...p} d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3"/>;
+const IcoRadar      = (p) => <Ico {...p} d="M3.34 19a10 10 0 1 1 17.32 0M2 12h20M12 2v10M16.9 7.1 12 12M7.1 7.1 12 12"/>;
+const IcoFlame      = (p) => <Ico {...p} d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>;
+const IcoRefresh    = (p) => <Ico {...p} d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8M3 3v5h5M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16m18 5v-5h-5"/>;
+const IcoLock       = (p) => <Ico {...p} d="M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM7 11V7a5 5 0 0 1 10 0v4"/>;
 const IcoGoogle = () => (
   <svg width="18" height="18" viewBox="0 0 24 24">
     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -156,6 +163,115 @@ const COURSES = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// ASSESSMENT DATA
+// ─────────────────────────────────────────────────────────────────────────────
+const ASSESSMENT_SCENARIOS = [
+  {
+    id: 1,
+    category: "MACRO ECONOMICS",
+    difficulty: "INTERMEDIATE",
+    diffColor: "#f59e0b",
+    asset: "S&P 500",
+    ticker: "SPX",
+    context: "The Federal Reserve has just released FOMC minutes signaling a 25bps rate cut in the next meeting. Core CPI came in at 2.8% (below 3.0% forecast). Unemployment ticked up to 4.2%. Tech sector earnings have been broadly beating estimates by ~12%.",
+    chartData: Array.from({length:20},(_,i)=>({ t:`Day ${i+1}`, price: 5800 + Math.sin(i*0.5)*60 + i*8 + (Math.random()-0.45)*25 })),
+    aiPrediction: "BULLISH",
+    aiTarget: "+2.8%",
+    aiConfidence: 81,
+    aiReasoning: "Rate cut signal + CPI beat = risk-on environment. Historical back-test: 78% of similar macro setups produced positive 5-day returns averaging +2.4%. Tech earnings momentum provides additional tailwind. Key risk: labor market softness could accelerate recession fears if next payroll disappoints.",
+    correctDirection: "BULLISH",
+    correctTarget: "+2.1% to +3.4%",
+    conceptTaught: "Monetary policy easing typically benefits equities via lower discount rates and improved corporate borrowing conditions.",
+    xpReward: 120,
+    tags: ["Fed Policy","CPI","Rate Sensitivity","Growth Stocks"],
+  },
+  {
+    id: 2,
+    category: "TECHNICAL ANALYSIS",
+    difficulty: "ADVANCED",
+    diffColor: "#ef4444",
+    asset: "Bitcoin",
+    ticker: "BTC/USD",
+    context: "BTC broke below its 200-day moving average (currently at $58,400) on above-average volume (2.3× daily avg). RSI is at 38 — approaching oversold. A bearish engulfing candle formed on the weekly chart. On-chain data shows long-term holders (1yr+) beginning to distribute. Exchange inflows spiked 340% in 24h.",
+    chartData: Array.from({length:20},(_,i)=>({ t:`Day ${i+1}`, price: 62000 - i*400 + Math.sin(i*0.8)*800 + (Math.random()-0.5)*500 })),
+    aiPrediction: "BEARISH",
+    aiTarget: "-8.4%",
+    aiConfidence: 74,
+    aiReasoning: "200DMA breach with volume confirmation is a strong bearish technical signal. Long-term holder distribution combined with exchange inflow surge indicates profit-taking at scale. RSI at 38 suggests room to fall further before reaching classic oversold territory (30). Target zone: $52,000–$55,000.",
+    correctDirection: "BEARISH",
+    correctTarget: "-6% to -12%",
+    conceptTaught: "Breaking key moving averages on high volume, combined with on-chain distribution signals, is a high-conviction bearish setup in crypto markets.",
+    xpReward: 180,
+    tags: ["200DMA","RSI","On-Chain","Volume Analysis"],
+  },
+  {
+    id: 3,
+    category: "SECTOR ROTATION",
+    difficulty: "INTERMEDIATE",
+    diffColor: "#f59e0b",
+    asset: "Energy Sector ETF",
+    ticker: "XLE",
+    context: "OPEC+ announced a surprise 800k bbl/day production cut effective next month. WTI crude jumped 4.1% intraday. The broader market (SPX) is flat to slightly negative. The 10Y Treasury yield is rising (+8bps today). Inflation expectations (5Y breakeven) moved up 12bps. Energy sector has underperformed for 3 consecutive quarters.",
+    chartData: Array.from({length:20},(_,i)=>({ t:`Day ${i+1}`, price: 88 + i*0.6 + Math.sin(i*0.6)*2.2 + (Math.random()-0.4)*1.5 })),
+    aiPrediction: "BULLISH",
+    aiTarget: "+5.2%",
+    aiConfidence: 88,
+    aiReasoning: "Supply shock from OPEC+ cut directly benefits upstream energy producers. Rising yields and inflation expectations signal commodity-friendly macro environment. Sector rotation from growth to value/energy expected. Mean-reversion opportunity after 3Q underperformance adds to conviction.",
+    correctDirection: "BULLISH",
+    correctTarget: "+4% to +7%",
+    conceptTaught: "Sector rotation into energy accelerates during supply shocks. Rising inflation expectations + supply cuts = powerful dual catalyst for energy equities.",
+    xpReward: 120,
+    tags: ["OPEC+","Supply Shock","Sector Rotation","Commodities"],
+  },
+  {
+    id: 4,
+    category: "EARNINGS ANALYSIS",
+    difficulty: "BEGINNER",
+    diffColor: "#10b981",
+    asset: "NVIDIA Corp",
+    ticker: "NVDA",
+    context: "NVDA reported Q3 earnings: EPS of $4.02 vs $3.37 estimate (+19% beat). Revenue $18.1B vs $16.2B estimate (+11.7% beat). Data Center revenue +112% YoY. Gross margin expanded to 74.6% (guide was 72%). CEO guided Q4 revenue to $20B vs $17.8B consensus. However, the stock has already rallied 22% in the 30 days before the report.",
+    chartData: Array.from({length:20},(_,i)=>({ t:`Day ${i+1}`, price: 480 + (i<10 ? i*4 : (i===10?80:80-(i-10)*3)) + (Math.random()-0.5)*8 })),
+    aiPrediction: "NEUTRAL",
+    aiTarget: "-1.2% to +3%",
+    aiConfidence: 62,
+    aiReasoning: "Classic 'buy the rumor, sell the news' dynamic. Beat was exceptional but 22% pre-earnings rally suggests expectations were already priced in. Short-term volatility likely. Long-term thesis intact — accumulate on any pullback below $460. Options market implies ±8% move.",
+    correctDirection: "NEUTRAL/VOLATILE",
+    correctTarget: "High volatility range",
+    conceptTaught: "'Buy the rumor, sell the news' — when a stock rallies significantly before earnings, even strong beats can trigger profit-taking as expectations get fully priced in.",
+    xpReward: 80,
+    tags: ["Earnings Beat","Priced In","Options Volatility","Guidance"],
+  },
+  {
+    id: 5,
+    category: "RISK MANAGEMENT",
+    difficulty: "ADVANCED",
+    diffColor: "#ef4444",
+    asset: "EUR/USD",
+    ticker: "EURUSD",
+    context: "ECB left rates unchanged (as expected) but the statement language shifted from 'restrictive' to 'data-dependent' — a subtle dovish pivot. Meanwhile, US Non-Farm Payrolls beat +287K vs +215K estimate. USD strengthened immediately +0.8%. The euro had been in a 3-week consolidation range of 1.0820–1.0940. A clean break below 1.0820 just occurred on the NFP release.",
+    chartData: Array.from({length:20},(_,i)=>({ t:`Day ${i+1}`, price: 1.0900 - i*0.002 + Math.sin(i*0.7)*0.004 + (Math.random()-0.5)*0.003 })),
+    aiPrediction: "BEARISH",
+    aiTarget: "-1.6%",
+    aiConfidence: 79,
+    aiReasoning: "Dual catalyst: ECB dovish shift + NFP beat = USD dominance. Range breakdown below 1.0820 is a technical confirmation of the fundamental move. Next support: 1.0680 (38.2% Fib from 2023 low). Risk: US CPI print next week could reverse if below expectations. Stop-loss above 1.0850 for any short position.",
+    correctDirection: "BEARISH",
+    correctTarget: "-1.2% to -2%",
+    conceptTaught: "In forex, the combination of a hawkish fundamental shift in one currency and a dovish shift in the counterpart creates amplified directional momentum — especially when confirmed by a technical range break.",
+    xpReward: 180,
+    tags: ["ECB","NFP","Range Breakout","Fibonacci","Forex"],
+  },
+];
+
+const SKILL_DIMENSIONS = [
+  { key:"macro",     label:"Macro Analysis",    color:"#10b981", icon:"🌍" },
+  { key:"technical", label:"Technical Analysis", color:"#3b82f6", icon:"📊" },
+  { key:"risk",      label:"Risk Management",    color:"#ef4444", icon:"🛡️" },
+  { key:"sector",    label:"Sector Rotation",    color:"#f59e0b", icon:"🔄" },
+  { key:"earnings",  label:"Earnings Reading",   color:"#8b5cf6", icon:"📈" },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
 // HOOKS + PRIMITIVES
 // ─────────────────────────────────────────────────────────────────────────────
 function useInView(threshold=0.15) {
@@ -230,12 +346,24 @@ const ChartTip = ({ active, payload, label }) => {
 // ─────────────────────────────────────────────────────────────────────────────
 function DrasticAlertOverlay({ event: ev, onDismiss }) {
   const [expanded, setExpanded] = useState(false);
+  const [exiting, setExiting] = useState(false);
   const isCritical = ev.urgency >= 8;
+
+  const handleDismiss = () => {
+    setExiting(true);
+    setTimeout(onDismiss, 280);
+  };
+
+  // Mirror the 7s auto-dismiss with an exit animation at ~6.7s
+  useEffect(() => {
+    const t = setTimeout(() => setExiting(true), 6700);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <div style={{
       width: expanded ? 360 : 300, fontFamily: T.font,
-      animation: "slideInRight 0.45s cubic-bezier(0.16,1,0.3,1)",
+      animation: exiting ? "slideOutRight 0.3s ease forwards" : "slideInRight 0.45s cubic-bezier(0.16,1,0.3,1)",
       filter: `drop-shadow(0 0 ${isCritical ? 20 : 10}px ${ev.color}44)`,
     }}>
       <div style={{
@@ -245,6 +373,16 @@ function DrasticAlertOverlay({ event: ev, onDismiss }) {
         animation: isCritical ? `flashBorder 1.8s ease infinite` : "none",
         overflow: "hidden",
       }}>
+        {/* 7-second countdown drain bar at top */}
+        <div style={{ height: 2, background: "rgba(255,255,255,0.06)", position: "relative", overflow: "hidden" }}>
+          <div style={{
+            position: "absolute", top: 0, left: 0, height: "100%",
+            background: `linear-gradient(90deg, ${ev.color}, ${ev.color}88)`,
+            animation: "timerDrain 7s linear forwards",
+            boxShadow: `0 0 6px ${ev.color}`,
+          }}/>
+        </div>
+
         {/* Header */}
         <div style={{ padding: "12px 14px 10px", background: `linear-gradient(135deg, ${ev.color}12, transparent)`, borderBottom: `1px solid ${T.border}` }}>
           <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:8 }}>
@@ -255,7 +393,7 @@ function DrasticAlertOverlay({ event: ev, onDismiss }) {
                 <div style={{ fontSize:12, fontWeight:700, color:T.text, lineHeight:1.3, marginTop:1 }}>{ev.title}</div>
               </div>
             </div>
-            <button onClick={onDismiss} style={{ background:"none", border:"none", color:T.textMid, cursor:"pointer", padding:4, borderRadius:6, flexShrink:0 }}>
+            <button onClick={handleDismiss} style={{ background:"none", border:"none", color:T.textMid, cursor:"pointer", padding:4, borderRadius:6, flexShrink:0 }}>
               <IcoX size={12}/>
             </button>
           </div>
@@ -307,18 +445,640 @@ function DrasticAlertOverlay({ event: ev, onDismiss }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// ASSESSMENT PAGE — User vs AI Prediction Self-Assessment
+// ─────────────────────────────────────────────────────────────────────────────
+function RadarChart({ scores }) {
+  const dims = SKILL_DIMENSIONS;
+  const cx = 110, cy = 110, r = 80;
+  const pts = dims.map((_, i) => {
+    const angle = (i / dims.length) * Math.PI * 2 - Math.PI / 2;
+    const val = (scores[dims[i].key] || 0) / 100;
+    return { x: cx + Math.cos(angle) * r * val, y: cy + Math.sin(angle) * r * val, ax: cx + Math.cos(angle) * (r + 22), ay: cy + Math.sin(angle) * (r + 22) };
+  });
+  const gridLevels = [0.25, 0.5, 0.75, 1];
+  return (
+    <svg width={220} height={220} style={{ overflow: "visible" }}>
+      {/* Grid rings */}
+      {gridLevels.map(level => {
+        const gpts = dims.map((_, i) => {
+          const angle = (i / dims.length) * Math.PI * 2 - Math.PI / 2;
+          return `${cx + Math.cos(angle) * r * level},${cy + Math.sin(angle) * r * level}`;
+        }).join(" ");
+        return <polygon key={level} points={gpts} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1"/>;
+      })}
+      {/* Spokes */}
+      {dims.map((_, i) => {
+        const angle = (i / dims.length) * Math.PI * 2 - Math.PI / 2;
+        return <line key={i} x1={cx} y1={cy} x2={cx + Math.cos(angle) * r} y2={cy + Math.sin(angle) * r} stroke="rgba(255,255,255,0.06)" strokeWidth="1"/>;
+      })}
+      {/* Score polygon */}
+      <polygon points={pts.map(p => `${p.x},${p.y}`).join(" ")} fill="rgba(16,185,129,0.12)" stroke="#10b981" strokeWidth="1.5"/>
+      {/* Score dots */}
+      {pts.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r={3} fill={dims[i].color}/>)}
+      {/* Axis labels */}
+      {pts.map((p, i) => (
+        <text key={i} x={p.ax} y={p.ay} textAnchor="middle" dominantBaseline="middle" style={{ fontSize: 8, fill: dims[i].color, fontFamily: "'Space Mono', monospace", letterSpacing: "0.08em" }}>
+          {dims[i].icon}
+        </text>
+      ))}
+    </svg>
+  );
+}
+
+function ScenarioCard({ scenario, onSubmit, submitted, userAnswer, result }) {
+  const [direction, setDirection] = useState(null);
+  const [confidence, setConfidence] = useState(50);
+  const [rationale, setRationale] = useState("");
+  const [showAI, setShowAI] = useState(false);
+  const [phase, setPhase] = useState("predict"); // predict | reveal
+
+  const directions = [
+    { key: "BULLISH",        label: "BULLISH",         color: "#10b981", icon: "▲" },
+    { key: "BEARISH",        label: "BEARISH",         color: "#ef4444", icon: "▼" },
+    { key: "NEUTRAL",        label: "NEUTRAL",         color: "#f59e0b", icon: "■" },
+    { key: "NEUTRAL/VOLATILE", label: "VOLATILE",      color: "#8b5cf6", icon: "⚡" },
+  ];
+
+  const handleSubmit = () => {
+    if (!direction) return;
+    onSubmit({ direction, confidence, rationale });
+    setPhase("reveal");
+  };
+
+  const isCorrect = direction === scenario.correctDirection || (scenario.correctDirection.includes(direction));
+  const accuracyDelta = Math.abs(confidence - scenario.aiConfidence);
+  const score = isCorrect ? Math.max(40, 100 - accuracyDelta * 0.5) : Math.max(0, 30 - accuracyDelta * 0.3);
+
+  const diffColors = { BEGINNER: T.emerald, INTERMEDIATE: T.amber, ADVANCED: T.red };
+
+  return (
+    <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 20, overflow: "hidden" }}>
+      {/* Scenario header */}
+      <div style={{ padding: "20px 24px 16px", borderBottom: `1px solid ${T.border}`, background: `linear-gradient(135deg, rgba(16,185,129,0.05), rgba(59,130,246,0.03))` }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 8, letterSpacing: "0.14em", padding: "3px 9px", borderRadius: 5, background: "rgba(59,130,246,0.12)", border: "1px solid rgba(59,130,246,0.3)", color: T.blue }}>{scenario.category}</span>
+            <span style={{ fontSize: 8, letterSpacing: "0.14em", padding: "3px 9px", borderRadius: 5, background: `${diffColors[scenario.difficulty]}15`, border: `1px solid ${diffColors[scenario.difficulty]}40`, color: diffColors[scenario.difficulty] }}>{scenario.difficulty}</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 9, color: T.amber }}>
+            <IcoFlame size={12} color={T.amber}/> +{scenario.xpReward} XP
+          </div>
+        </div>
+        <div style={{ fontSize: 18, fontWeight: 800, fontFamily: T.fontDisp, color: T.text, marginBottom: 2 }}>{scenario.asset}</div>
+        <div style={{ fontSize: 10, color: T.textMid, letterSpacing: "0.08em" }}>{scenario.ticker}</div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 260px", gap: 0 }}>
+        {/* Left: context + prediction */}
+        <div style={{ padding: "20px 24px", borderRight: `1px solid ${T.border}` }}>
+          {/* Market context */}
+          <div style={{ fontSize: 8, letterSpacing: "0.14em", color: T.textDim, marginBottom: 8 }}>MARKET CONTEXT</div>
+          <p style={{ fontSize: 11, color: "#bbb", lineHeight: 1.8, marginBottom: 20, padding: "14px 16px", background: "rgba(255,255,255,0.02)", borderRadius: 10, border: `1px solid ${T.border}` }}>
+            {scenario.context}
+          </p>
+
+          {/* Tags */}
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
+            {scenario.tags.map(tag => (
+              <span key={tag} style={{ fontSize: 8, padding: "2px 8px", borderRadius: 20, background: "rgba(255,255,255,0.04)", border: `1px solid ${T.border}`, color: T.textMid }}>{tag}</span>
+            ))}
+          </div>
+
+          {phase === "predict" ? (
+            <>
+              {/* Direction picker */}
+              <div style={{ fontSize: 8, letterSpacing: "0.14em", color: T.textDim, marginBottom: 10 }}>YOUR PREDICTION — DIRECTION</div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 20 }}>
+                {directions.map(d => (
+                  <button key={d.key} onClick={() => setDirection(d.key)} style={{
+                    padding: "10px 6px", borderRadius: 10, cursor: "pointer", fontFamily: T.font,
+                    background: direction === d.key ? `${d.color}18` : "rgba(255,255,255,0.03)",
+                    border: `1px solid ${direction === d.key ? d.color + "66" : T.border}`,
+                    color: direction === d.key ? d.color : T.textDim,
+                    fontSize: 9, letterSpacing: "0.1em", transition: "all 0.2s",
+                    display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
+                    boxShadow: direction === d.key ? `0 0 16px ${d.color}22` : "none",
+                  }}>
+                    <span style={{ fontSize: 16 }}>{d.icon}</span>
+                    {d.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Confidence slider */}
+              <div style={{ fontSize: 8, letterSpacing: "0.14em", color: T.textDim, marginBottom: 8 }}>CONFIDENCE LEVEL — {confidence}%</div>
+              <div style={{ position: "relative", marginBottom: 20 }}>
+                <input type="range" min={10} max={99} value={confidence} onChange={e => setConfidence(+e.target.value)}
+                  style={{ width: "100%", accentColor: T.emerald, cursor: "pointer", height: 6 }}/>
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4, fontSize: 8, color: T.textDim }}>
+                  <span>LOW CONVICTION</span><span>HIGH CONVICTION</span>
+                </div>
+              </div>
+
+              {/* Rationale */}
+              <div style={{ fontSize: 8, letterSpacing: "0.14em", color: T.textDim, marginBottom: 8 }}>YOUR RATIONALE <span style={{ color: "#333" }}>(optional)</span></div>
+              <textarea value={rationale} onChange={e => setRationale(e.target.value)}
+                placeholder="Explain your reasoning... What signals drove your decision?"
+                style={{ width: "100%", minHeight: 72, padding: "10px 14px", borderRadius: 10, background: "rgba(255,255,255,0.04)", border: `1px solid ${T.border}`, color: T.text, fontSize: 10, outline: "none", fontFamily: T.font, resize: "vertical", lineHeight: 1.6 }}
+                onFocus={e => e.target.style.borderColor = "rgba(16,185,129,0.4)"}
+                onBlur={e => e.target.style.borderColor = T.border}
+              />
+
+              <button onClick={handleSubmit} disabled={!direction} style={{
+                marginTop: 16, width: "100%", padding: "13px", borderRadius: 12,
+                background: direction ? `linear-gradient(135deg,${T.emerald},${T.emeraldDk})` : "rgba(255,255,255,0.05)",
+                border: "none", color: direction ? "#000" : T.textDim,
+                fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", cursor: direction ? "pointer" : "not-allowed",
+                fontFamily: T.font, transition: "all 0.2s",
+                boxShadow: direction ? `0 0 24px ${T.emerald}33` : "none",
+              }}>
+                LOCK IN PREDICTION →
+              </button>
+            </>
+          ) : (
+            /* REVEAL PHASE */
+            <div style={{ animation: "fadeInUp 0.5s ease" }}>
+              {/* Score banner */}
+              <div style={{
+                padding: "16px 20px", borderRadius: 14, marginBottom: 16,
+                background: isCorrect ? "rgba(16,185,129,0.1)" : "rgba(239,68,68,0.08)",
+                border: `1px solid ${isCorrect ? T.emerald + "44" : T.red + "44"}`,
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+              }}>
+                <div>
+                  <div style={{ fontSize: 10, letterSpacing: "0.12em", color: isCorrect ? T.emerald : T.red, marginBottom: 4 }}>
+                    {isCorrect ? "✓ CORRECT DIRECTION" : "✗ DIRECTION MISSED"}
+                  </div>
+                  <div style={{ fontSize: 11, color: "#bbb" }}>
+                    Your call: <strong style={{ color: direction === "BULLISH" ? T.emerald : direction === "BEARISH" ? T.red : T.amber }}>{direction}</strong>
+                    {" · "} Correct: <strong style={{ color: T.emerald }}>{scenario.correctDirection}</strong>
+                  </div>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontSize: 24, fontWeight: 800, fontFamily: T.fontDisp, color: isCorrect ? T.emerald : T.amber }}>+{Math.round(score)}</div>
+                  <div style={{ fontSize: 8, color: T.textDim, letterSpacing: "0.1em" }}>POINTS EARNED</div>
+                </div>
+              </div>
+
+              {/* Concept taught */}
+              <div style={{ padding: "14px 16px", borderRadius: 12, background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.2)", marginBottom: 12 }}>
+                <div style={{ fontSize: 8, letterSpacing: "0.12em", color: T.blue, marginBottom: 6 }}>💡 KEY CONCEPT</div>
+                <p style={{ fontSize: 11, color: "#bbb", lineHeight: 1.7, margin: 0 }}>{scenario.conceptTaught}</p>
+              </div>
+
+              {/* Target range */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                <div style={{ padding: "10px 14px", borderRadius: 10, background: "rgba(255,255,255,0.03)", border: `1px solid ${T.border}` }}>
+                  <div style={{ fontSize: 8, color: T.textDim, letterSpacing: "0.1em", marginBottom: 4 }}>YOUR CONFIDENCE</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, fontFamily: T.fontDisp, color: confidence > 70 ? T.emerald : T.amber }}>{confidence}%</div>
+                </div>
+                <div style={{ padding: "10px 14px", borderRadius: 10, background: "rgba(255,255,255,0.03)", border: `1px solid ${T.border}` }}>
+                  <div style={{ fontSize: 8, color: T.textDim, letterSpacing: "0.1em", marginBottom: 4 }}>AI CONFIDENCE</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, fontFamily: T.fontDisp, color: T.blue }}>{scenario.aiConfidence}%</div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right: chart + AI prediction */}
+        <div style={{ padding: "20px 18px", display: "flex", flexDirection: "column", gap: 16 }}>
+          {/* Mini price chart */}
+          <div>
+            <div style={{ fontSize: 8, letterSpacing: "0.12em", color: T.textDim, marginBottom: 8 }}>PRICE ACTION (20 DAYS)</div>
+            <div style={{ height: 110 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={scenario.chartData} margin={{ top: 4, right: 4, bottom: 0, left: -28 }}>
+                  <defs>
+                    <linearGradient id={`grad-${scenario.id}`} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={T.emerald} stopOpacity={0.2}/>
+                      <stop offset="95%" stopColor={T.emerald} stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="t" tick={{ fontSize: 7, fill: T.textDim, fontFamily: T.font }} axisLine={false} tickLine={false} interval={4}/>
+                  <YAxis tick={{ fontSize: 7, fill: T.textDim, fontFamily: T.font }} axisLine={false} tickLine={false} domain={["auto","auto"]}/>
+                  <Tooltip content={<ChartTip/>}/>
+                  <Area type="monotone" dataKey="price" name={scenario.ticker} stroke={T.emerald} strokeWidth={1.5} fill={`url(#grad-${scenario.id})`} dot={false}/>
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* AI Prediction — always visible after submit, hidden before */}
+          {(phase === "reveal" || showAI) ? (
+            <div style={{ flex: 1, padding: "14px", background: "rgba(16,185,129,0.05)", border: "1px solid rgba(16,185,129,0.2)", borderRadius: 12, animation: "fadeInUp 0.4s ease" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
+                <div style={{ width: 22, height: 22, borderRadius: 6, background: `linear-gradient(135deg,${T.emerald},${T.emeraldDk})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10 }}>⚡</div>
+                <span style={{ fontSize: 9, letterSpacing: "0.12em", color: T.emerald }}>NEXUS AI VERDICT</span>
+              </div>
+              <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
+                <div style={{ padding: "6px 12px", borderRadius: 8, background: scenario.aiPrediction === "BULLISH" ? "rgba(16,185,129,0.15)" : scenario.aiPrediction === "BEARISH" ? "rgba(239,68,68,0.15)" : "rgba(245,158,11,0.15)", border: `1px solid ${scenario.aiPrediction === "BULLISH" ? T.emerald : scenario.aiPrediction === "BEARISH" ? T.red : T.amber}44`, color: scenario.aiPrediction === "BULLISH" ? T.emerald : scenario.aiPrediction === "BEARISH" ? T.red : T.amber, fontSize: 10, fontWeight: 700 }}>
+                  {scenario.aiPrediction}
+                </div>
+                <div style={{ padding: "6px 10px", borderRadius: 8, background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.25)", color: T.blue, fontSize: 10, fontWeight: 700 }}>
+                  {scenario.aiTarget}
+                </div>
+              </div>
+              <div style={{ marginBottom: 8 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 8, color: T.textDim, marginBottom: 4 }}>
+                  <span>AI CONFIDENCE</span><span style={{ color: T.blue }}>{scenario.aiConfidence}%</span>
+                </div>
+                <div style={{ height: 4, borderRadius: 100, background: "rgba(255,255,255,0.06)", overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${scenario.aiConfidence}%`, borderRadius: 100, background: `linear-gradient(90deg,${T.blue},#60a5fa)` }}/>
+                </div>
+              </div>
+              <p style={{ fontSize: 10, color: "#999", lineHeight: 1.65, margin: 0 }}>{scenario.aiReasoning}</p>
+            </div>
+          ) : (
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10, padding: "20px 14px", background: "rgba(255,255,255,0.02)", borderRadius: 12, border: `1px dashed ${T.border}`, cursor: "pointer" }} onClick={() => setShowAI(true)}>
+              <IcoLock size={20} color={T.textDim}/>
+              <div style={{ fontSize: 9, letterSpacing: "0.12em", color: T.textDim, textAlign: "center", lineHeight: 1.6 }}>AI VERDICT HIDDEN<br/><span style={{ color: "#333" }}>Make your prediction first<br/>or click to peek</span></div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AssessmentPage() {
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [results, setResults] = useState([]);
+  const [completed, setCompleted] = useState(false);
+  const [activeScenarioPhase, setActiveScenarioPhase] = useState("predict");
+  const [userAnswers, setUserAnswers] = useState({});
+  const topRef = useRef(null);
+
+  const scenario = ASSESSMENT_SCENARIOS[currentIdx];
+
+  const handleSubmit = (answer) => {
+    const newAnswers = { ...userAnswers, [scenario.id]: answer };
+    setUserAnswers(newAnswers);
+    setActiveScenarioPhase("reveal");
+  };
+
+  const handleNext = () => {
+    if (currentIdx + 1 >= ASSESSMENT_SCENARIOS.length) {
+      // Calculate final results
+      const finalResults = ASSESSMENT_SCENARIOS.map(s => {
+        const ans = userAnswers[s.id];
+        if (!ans) return { scenarioId: s.id, correct: false, score: 0, category: s.category };
+        const correct = ans.direction === s.correctDirection || s.correctDirection.includes(ans.direction);
+        const score = correct ? Math.max(40, 100 - Math.abs(ans.confidence - s.aiConfidence) * 0.5) : 20;
+        return { scenarioId: s.id, correct, score, category: s.category, confidence: ans.confidence };
+      });
+      setResults(finalResults);
+      setCompleted(true);
+    } else {
+      setCurrentIdx(i => i + 1);
+      setActiveScenarioPhase("predict");
+      topRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleRestart = () => {
+    setCurrentIdx(0);
+    setResults([]);
+    setCompleted(false);
+    setActiveScenarioPhase("predict");
+    setUserAnswers({});
+    topRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Compute radar scores from results
+  const radarScores = SKILL_DIMENSIONS.reduce((acc, dim) => {
+    const relevant = results.filter(r => {
+      const s = ASSESSMENT_SCENARIOS.find(sc => sc.id === r.scenarioId);
+      return s && s.category.toLowerCase().includes(dim.key.toLowerCase().replace("2",""));
+    });
+    const score = relevant.length > 0 ? Math.round(relevant.reduce((sum, r) => sum + r.score, 0) / relevant.length) : 50;
+    acc[dim.key] = score;
+    return acc;
+  }, {});
+  // Fill empties with partial scores
+  SKILL_DIMENSIONS.forEach(d => { if (!radarScores[d.key]) radarScores[d.key] = 45 + Math.random() * 30; });
+
+  const totalXP = results.reduce((sum, r) => {
+    const s = ASSESSMENT_SCENARIOS.find(sc => sc.id === r.scenarioId);
+    return sum + (r.correct ? s?.xpReward || 0 : Math.round((s?.xpReward || 0) * 0.25));
+  }, 0);
+  const accuracy = results.length > 0 ? Math.round(results.filter(r => r.correct).length / results.length * 100) : 0;
+  const avgConfidence = results.length > 0 ? Math.round(results.reduce((s, r) => s + (r.confidence || 50), 0) / results.length) : 0;
+  const avgAIConf = Math.round(ASSESSMENT_SCENARIOS.reduce((s, sc) => s + sc.aiConfidence, 0) / ASSESSMENT_SCENARIOS.length);
+  const overallScore = results.length > 0 ? Math.round(results.reduce((s, r) => s + r.score, 0) / results.length) : 0;
+
+  const getGrade = (score) => {
+    if (score >= 85) return { grade: "S", label: "QUANT ANALYST", color: "#10b981" };
+    if (score >= 70) return { grade: "A", label: "MARKET STRATEGIST", color: "#3b82f6" };
+    if (score >= 55) return { grade: "B", label: "MACRO ANALYST", color: "#8b5cf6" };
+    if (score >= 40) return { grade: "C", label: "JUNIOR TRADER", color: "#f59e0b" };
+    return { grade: "D", label: "APPRENTICE", color: "#ef4444" };
+  };
+  const { grade, label, color: gradeColor } = getGrade(overallScore);
+
+  return (
+    <div ref={topRef} style={{ paddingTop: 80, maxWidth: 1200, margin: "0 auto", padding: "80px 40px 60px", fontFamily: T.font }}>
+
+      {/* Page header */}
+      <Reveal>
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+            <div style={{ fontSize: 9, letterSpacing: "0.2em", color: T.emerald }}>SELF-ASSESSMENT</div>
+            <span style={{ fontSize: 9, color: T.textDim }}>·</span>
+            <div style={{ fontSize: 9, letterSpacing: "0.2em", color: T.textDim }}>USER VS AI PREDICTION ARENA</div>
+          </div>
+          <h1 style={{ fontSize: "clamp(28px,4vw,52px)", fontWeight: 800, letterSpacing: "-0.02em", fontFamily: T.fontDisp, marginBottom: 10, color: T.text }}>
+            Predict Like a{" "}<span style={{ color: T.emerald }}>Professional.</span>
+          </h1>
+          <p style={{ fontSize: 13, color: T.textMid, maxWidth: 600, lineHeight: 1.8 }}>
+            Test your market analysis skills against Nexus AI across 5 real-world scenarios. Each challenge is scored on direction accuracy, confidence calibration, and reasoning quality.
+          </p>
+        </div>
+      </Reveal>
+
+      {/* Progress bar + stats strip */}
+      {!completed && (
+        <Reveal delay={0.05}>
+          <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 16, padding: "16px 22px", marginBottom: 24, display: "flex", alignItems: "center", gap: 24 }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: T.textDim, letterSpacing: "0.1em", marginBottom: 6 }}>
+                <span>SCENARIO {currentIdx + 1} OF {ASSESSMENT_SCENARIOS.length}</span>
+                <span style={{ color: T.emerald }}>{Math.round(((currentIdx + (activeScenarioPhase === "reveal" ? 1 : 0)) / ASSESSMENT_SCENARIOS.length) * 100)}% COMPLETE</span>
+              </div>
+              <div style={{ height: 6, borderRadius: 100, background: "rgba(255,255,255,0.06)", overflow: "hidden" }}>
+                <div style={{ height: "100%", borderRadius: 100, background: `linear-gradient(90deg,${T.emerald},${T.blue})`, width: `${((currentIdx + (activeScenarioPhase === "reveal" ? 1 : 0)) / ASSESSMENT_SCENARIOS.length) * 100}%`, transition: "width 0.6s cubic-bezier(0.16,1,0.3,1)", boxShadow: `0 0 10px ${T.emerald}44` }}/>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 20, flexShrink: 0 }}>
+              {[
+                { label: "CORRECT", val: Object.values(userAnswers).filter((a, i) => { const s = ASSESSMENT_SCENARIOS[i]; return s && (a.direction === s.correctDirection || s.correctDirection.includes(a.direction)); }).length, color: T.emerald },
+                { label: "XP EARNED", val: Object.values(userAnswers).reduce((sum, a, i) => { const s = ASSESSMENT_SCENARIOS[i]; if (!s) return sum; const correct = a.direction === s.correctDirection || s.correctDirection.includes(a.direction); return sum + (correct ? s.xpReward : Math.round(s.xpReward * 0.25)); }, 0), color: T.amber },
+              ].map(st => (
+                <div key={st.label} style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 20, fontWeight: 800, fontFamily: T.fontDisp, color: st.color }}>{st.val}</div>
+                  <div style={{ fontSize: 7, letterSpacing: "0.12em", color: T.textDim }}>{st.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      )}
+
+      {/* Scenario thumbnails nav */}
+      {!completed && (
+        <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+          {ASSESSMENT_SCENARIOS.map((s, i) => {
+            const isAnswered = !!userAnswers[s.id];
+            const isCurrent = i === currentIdx;
+            const isLocked = i > currentIdx && !isAnswered;
+            return (
+              <div key={s.id} style={{ flex: 1, padding: "10px 12px", borderRadius: 12, border: `1px solid ${isCurrent ? T.emerald + "66" : isAnswered ? T.blue + "44" : T.border}`, background: isCurrent ? "rgba(16,185,129,0.08)" : isAnswered ? "rgba(59,130,246,0.06)" : "rgba(255,255,255,0.02)", cursor: isLocked ? "not-allowed" : "pointer", opacity: isLocked ? 0.4 : 1, transition: "all 0.2s" }}
+                onClick={() => { if (!isLocked) { setCurrentIdx(i); setActiveScenarioPhase(isAnswered ? "reveal" : "predict"); } }}>
+                <div style={{ fontSize: 7, letterSpacing: "0.1em", color: isCurrent ? T.emerald : isAnswered ? T.blue : T.textDim, marginBottom: 2 }}>#{i + 1}</div>
+                <div style={{ fontSize: 9, fontWeight: 700, color: T.text, fontFamily: T.fontDisp, lineHeight: 1.3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{s.asset}</div>
+                <div style={{ fontSize: 7, color: T.textDim }}>{s.category}</div>
+                {isAnswered && <div style={{ marginTop: 4, width: 16, height: 3, borderRadius: 2, background: T.emerald }}/>}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Main scenario or results */}
+      {!completed ? (
+        <div style={{ animation: "fadeInUp 0.4s ease" }}>
+          <ScenarioCard
+            key={scenario.id}
+            scenario={scenario}
+            onSubmit={handleSubmit}
+            submitted={!!userAnswers[scenario.id]}
+            userAnswer={userAnswers[scenario.id]}
+            phase={activeScenarioPhase}
+          />
+
+          {activeScenarioPhase === "reveal" && (
+            <div style={{ marginTop: 16, display: "flex", justifyContent: "flex-end", animation: "fadeInUp 0.3s ease" }}>
+              <button onClick={handleNext} style={{ padding: "13px 32px", borderRadius: 12, background: `linear-gradient(135deg,${T.emerald},${T.emeraldDk})`, border: "none", color: "#000", fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", cursor: "pointer", fontFamily: T.font, boxShadow: `0 0 24px ${T.emerald}44` }}>
+                {currentIdx + 1 >= ASSESSMENT_SCENARIOS.length ? "VIEW RESULTS →" : "NEXT SCENARIO →"}
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        /* ── RESULTS SCREEN ── */
+        <div style={{ animation: "fadeInUp 0.5s ease" }}>
+          {/* Big score card */}
+          <div style={{ background: T.bgCard, border: `1px solid ${T.border}`, borderRadius: 24, padding: "36px 40px", marginBottom: 20, position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: -60, right: -60, width: 240, height: 240, borderRadius: "50%", background: `radial-gradient(circle,${gradeColor}12,transparent 70%)`, pointerEvents: "none" }}/>
+            <div style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 40, alignItems: "center" }}>
+              {/* Grade */}
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 72, fontWeight: 900, fontFamily: T.fontDisp, color: gradeColor, lineHeight: 1, textShadow: `0 0 40px ${gradeColor}66` }}>{grade}</div>
+                <div style={{ fontSize: 9, letterSpacing: "0.14em", color: T.textDim, marginTop: 6 }}>ASSESSMENT GRADE</div>
+                <div style={{ marginTop: 8, padding: "4px 12px", borderRadius: 20, background: `${gradeColor}15`, border: `1px solid ${gradeColor}40`, fontSize: 9, fontWeight: 700, color: gradeColor, letterSpacing: "0.1em", display: "inline-block" }}>{label}</div>
+              </div>
+
+              {/* Stats */}
+              <div>
+                <div style={{ fontSize: 14, color: T.textMid, letterSpacing: "0.1em", marginBottom: 4 }}>ASSESSMENT COMPLETE</div>
+                <div style={{ fontSize: 32, fontWeight: 800, fontFamily: T.fontDisp, color: T.text, marginBottom: 16 }}>
+                  Overall Score: <span style={{ color: gradeColor }}>{overallScore}/100</span>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12 }}>
+                  {[
+                    { label: "ACCURACY", val: `${accuracy}%`, color: accuracy >= 60 ? T.emerald : T.amber },
+                    { label: "TOTAL XP", val: `+${totalXP}`, color: T.amber },
+                    { label: "YOUR CONF", val: `${avgConfidence}%`, color: T.blue },
+                    { label: "AI CONF", val: `${avgAIConf}%`, color: T.emerald },
+                  ].map(st => (
+                    <div key={st.label} style={{ padding: "12px 16px", background: "rgba(255,255,255,0.03)", borderRadius: 12, border: `1px solid ${T.border}` }}>
+                      <div style={{ fontSize: 9, color: T.textDim, letterSpacing: "0.1em", marginBottom: 6 }}>{st.label}</div>
+                      <div style={{ fontSize: 22, fontWeight: 800, fontFamily: T.fontDisp, color: st.color }}>{st.val}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Radar chart */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <RadarChart scores={radarScores}/>
+                <div style={{ fontSize: 8, color: T.textDim, letterSpacing: "0.1em", marginTop: 4 }}>SKILL RADAR</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Per-scenario breakdown */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
+            {/* Scenario-by-scenario */}
+            <GlassCard style={{ padding: 24 }}>
+              <div style={{ fontSize: 9, letterSpacing: "0.14em", color: T.blue, marginBottom: 16 }}>SCENARIO BREAKDOWN</div>
+              {ASSESSMENT_SCENARIOS.map((s, i) => {
+                const r = results[i];
+                const ans = userAnswers[s.id];
+                if (!r || !ans) return null;
+                const correct = r.correct;
+                return (
+                  <div key={s.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 0", borderBottom: `1px solid ${T.border}` }}>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <div style={{ width: 28, height: 28, borderRadius: 8, background: correct ? "rgba(16,185,129,0.12)" : "rgba(239,68,68,0.1)", border: `1px solid ${correct ? T.emerald + "40" : T.red + "40"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11 }}>
+                        {correct ? "✓" : "✗"}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: T.text, fontFamily: T.fontDisp }}>{s.asset}</div>
+                        <div style={{ fontSize: 8, color: T.textDim, letterSpacing: "0.08em" }}>{s.category}</div>
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                      <div style={{ fontSize: 9, padding: "2px 8px", borderRadius: 5, background: `${ans.direction === "BULLISH" ? T.emerald : ans.direction === "BEARISH" ? T.red : T.amber}15`, color: ans.direction === "BULLISH" ? T.emerald : ans.direction === "BEARISH" ? T.red : T.amber, border: `1px solid ${ans.direction === "BULLISH" ? T.emerald : ans.direction === "BEARISH" ? T.red : T.amber}40` }}>
+                        YOU: {ans.direction}
+                      </div>
+                      <div style={{ fontSize: 9, padding: "2px 8px", borderRadius: 5, background: "rgba(59,130,246,0.1)", color: T.blue, border: "1px solid rgba(59,130,246,0.25)" }}>
+                        AI: {s.aiPrediction}
+                      </div>
+                      <div style={{ fontSize: 14, fontWeight: 700, fontFamily: T.fontDisp, color: correct ? T.emerald : T.amber, minWidth: 32, textAlign: "right" }}>
+                        {Math.round(r.score)}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </GlassCard>
+
+            {/* Skill dimensions */}
+            <GlassCard style={{ padding: 24 }}>
+              <div style={{ fontSize: 9, letterSpacing: "0.14em", color: T.purple, marginBottom: 16 }}>SKILL DIMENSION SCORES</div>
+              {SKILL_DIMENSIONS.map(dim => {
+                const sc = Math.round(radarScores[dim.key] || 50);
+                return (
+                  <div key={dim.key} style={{ marginBottom: 16 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, marginBottom: 6 }}>
+                      <span style={{ color: dim.color }}>{dim.icon} {dim.label}</span>
+                      <span style={{ color: T.text, fontWeight: 700 }}>{sc}/100</span>
+                    </div>
+                    <div style={{ height: 6, borderRadius: 100, background: "rgba(255,255,255,0.06)", overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${sc}%`, borderRadius: 100, background: `linear-gradient(90deg,${dim.color},${dim.color}aa)`, boxShadow: `0 0 8px ${dim.color}44`, transition: "width 1s cubic-bezier(0.16,1,0.3,1)" }}/>
+                    </div>
+                    <div style={{ fontSize: 8, color: T.textDim, marginTop: 3 }}>{sc >= 75 ? "Strong performance" : sc >= 55 ? "Developing skill" : "Needs practice"}</div>
+                  </div>
+                );
+              })}
+            </GlassCard>
+          </div>
+
+          {/* AI vs User comparison bar chart */}
+          <GlassCard style={{ padding: 24, marginBottom: 20 }}>
+            <div style={{ fontSize: 9, letterSpacing: "0.14em", color: T.emerald, marginBottom: 6 }}>YOU VS NEXUS AI — CONFIDENCE CALIBRATION</div>
+            <div style={{ fontSize: 12, color: T.textMid, lineHeight: 1.6, marginBottom: 16 }}>Comparing your confidence levels against AI confidence across all scenarios. Well-calibrated confidence (close to AI) shows systematic thinking.</div>
+            <div style={{ height: 160 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={ASSESSMENT_SCENARIOS.map((s, i) => ({ name: s.ticker, user: userAnswers[s.id]?.confidence || 0, ai: s.aiConfidence }))} margin={{ top: 4, right: 4, bottom: 0, left: -20 }}>
+                  <XAxis dataKey="name" tick={{ fontSize: 8, fill: T.textDim, fontFamily: T.font }} axisLine={false} tickLine={false}/>
+                  <YAxis tick={{ fontSize: 8, fill: T.textDim, fontFamily: T.font }} axisLine={false} tickLine={false} domain={[0,100]}/>
+                  <Tooltip content={<ChartTip/>} cursor={{ fill: "rgba(255,255,255,0.04)" }}/>
+                  <Bar dataKey="user" name="Your Confidence" fill={T.blue} radius={[4,4,0,0]} fillOpacity={0.8}/>
+                  <Bar dataKey="ai" name="AI Confidence" fill={T.emerald} radius={[4,4,0,0]} fillOpacity={0.8}/>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div style={{ display: "flex", gap: 16, marginTop: 8, fontSize: 9, color: T.textDim }}>
+              <span style={{ display: "flex", alignItems: "center", gap: 5 }}><span style={{ width: 10, height: 10, borderRadius: 2, background: T.blue, display: "inline-block" }}/> Your Confidence</span>
+              <span style={{ display: "flex", alignItems: "center", gap: 5 }}><span style={{ width: 10, height: 10, borderRadius: 2, background: T.emerald, display: "inline-block" }}/> AI Confidence</span>
+            </div>
+          </GlassCard>
+
+          {/* Personalized feedback */}
+          <GlassCard accentColor={T.emerald} style={{ padding: 28, marginBottom: 20 }}>
+            <div style={{ fontSize: 9, letterSpacing: "0.14em", color: T.emerald, marginBottom: 16 }}>⚡ NEXUS AI — PERSONALIZED PERFORMANCE FEEDBACK</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              {[
+                { title: "Strengths", icon: "🏆", color: T.emerald, items: SKILL_DIMENSIONS.filter(d => (radarScores[d.key]||50) >= 65).slice(0,3).map(d => d.label) },
+                { title: "Focus Areas", icon: "🎯", color: T.amber, items: SKILL_DIMENSIONS.filter(d => (radarScores[d.key]||50) < 65).slice(0,3).map(d => d.label) },
+              ].map(section => (
+                <div key={section.title} style={{ padding: "14px 16px", borderRadius: 12, background: `${section.color}08`, border: `1px solid ${section.color}20` }}>
+                  <div style={{ fontSize: 10, color: section.color, letterSpacing: "0.1em", marginBottom: 10 }}>{section.icon} {section.title.toUpperCase()}</div>
+                  {section.items.length > 0 ? section.items.map(item => (
+                    <div key={item} style={{ fontSize: 11, color: "#bbb", padding: "4px 0", borderBottom: `1px solid ${T.border}`, display: "flex", alignItems: "center", gap: 6 }}>
+                      <span style={{ width: 4, height: 4, borderRadius: "50%", background: section.color, display: "inline-block", flexShrink: 0 }}/>
+                      {item}
+                    </div>
+                  )) : (
+                    <div style={{ fontSize: 11, color: T.textDim }}>All skills performing well!</div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 16, padding: "14px 16px", borderRadius: 12, background: "rgba(255,255,255,0.02)", border: `1px solid ${T.border}` }}>
+              <p style={{ fontSize: 11, color: "#aaa", lineHeight: 1.8, margin: 0 }}>
+                <strong style={{ color: T.text }}>AI Assessment:</strong> {
+                  accuracy >= 80 ? "Exceptional prediction accuracy. Your directional calls are consistently well-calibrated. Focus on refining entry/exit timing precision and confidence calibration — your intuition is strong, now build the systematic framework to match." :
+                  accuracy >= 60 ? "Solid performance with clear analytical foundations. Your macro and technical signal-reading is developing well. Key opportunity: reduce overconfidence on high-complexity setups and practice more scenario-based analysis on sector rotation plays." :
+                  "You're building the foundations of systematic market analysis. Focus on the three core pillars: macro signal identification, technical confirmation, and risk-reward assessment. Complete the Risk Management curriculum module to strengthen your weakest dimension."
+                }
+              </p>
+            </div>
+          </GlassCard>
+
+          {/* Restart button */}
+          <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+            <button onClick={handleRestart} style={{ padding: "13px 28px", borderRadius: 12, background: "rgba(255,255,255,0.05)", border: `1px solid ${T.border}`, color: T.text, fontSize: 11, letterSpacing: "0.1em", cursor: "pointer", fontFamily: T.font, display: "flex", alignItems: "center", gap: 8 }}>
+              <IcoRefresh size={14}/> RETAKE ASSESSMENT
+            </button>
+            <button style={{ padding: "13px 28px", borderRadius: 12, background: `linear-gradient(135deg,${T.emerald},${T.emeraldDk})`, border: "none", color: "#000", fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", cursor: "pointer", fontFamily: T.font, boxShadow: `0 0 24px ${T.emerald}44` }}>
+              CONTINUE LEARNING →
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // NAV
 // ─────────────────────────────────────────────────────────────────────────────
-function Nav({ activePage, onNavigate, alertCount=0 }) {
+function Nav({ activePage, onNavigate, alertCount=0, alertHistory=[], onClearUnread }) {
   const [scrolled, setScrolled] = useState(false);
+  const [bellOpen, setBellOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const bellRef = useRef(null);
+
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
 
-  const pages = ["HOME","MARKETS","LEARN","PORTFOLIO","AI STRATEGY"];
-  const pageKeys = ["home","markets","learn","portfolio","ai"];
+  // Increment unread whenever a new alert lands in history
+  const prevLen = useRef(0);
+  useEffect(() => {
+    if (alertHistory.length > prevLen.current) {
+      setUnreadCount(c => c + (alertHistory.length - prevLen.current));
+    }
+    prevLen.current = alertHistory.length;
+  }, [alertHistory.length]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    if (!bellOpen) return;
+    const handler = (e) => { if (bellRef.current && !bellRef.current.contains(e.target)) setBellOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [bellOpen]);
+
+  const openBell = () => {
+    setBellOpen(b => !b);
+    setUnreadCount(0);
+  };
+
+  const timeAgo = (ts) => {
+    const s = Math.floor((Date.now() - ts) / 1000);
+    if (s < 60) return `${s}s ago`;
+    if (s < 3600) return `${Math.floor(s/60)}m ago`;
+    return `${Math.floor(s/3600)}h ago`;
+  };
+
+  const pages = ["HOME","MARKETS","LEARN","ASSESSMENT","PORTFOLIO","AI STRATEGY"];
+  const pageKeys = ["home","markets","learn","assessment","portfolio","ai"];
 
   return (
     <nav style={{
@@ -350,18 +1110,127 @@ function Nav({ activePage, onNavigate, alertCount=0 }) {
         ))}
       </div>
 
-      {/* Right: Alert badge + Connect */}
+      {/* Right: Bell + Connect */}
       <div style={{ display:"flex", alignItems:"center", gap:12 }}>
-        {alertCount > 0 && (
-          <div onClick={() => onNavigate("markets")} style={{
-            width:32, height:32, borderRadius:10, display:"flex", alignItems:"center", justifyContent:"center",
-            background:"rgba(239,68,68,0.12)", border:"1px solid rgba(239,68,68,0.3)",
-            cursor:"pointer", position:"relative",
+
+        {/* Bell — always visible, shows unread badge */}
+        <div ref={bellRef} style={{ position:"relative" }}>
+          <div onClick={openBell} style={{
+            width:36, height:36, borderRadius:10, display:"flex", alignItems:"center", justifyContent:"center",
+            background: bellOpen ? "rgba(239,68,68,0.14)" : alertHistory.length > 0 ? "rgba(239,68,68,0.08)" : "rgba(255,255,255,0.05)",
+            border: `1px solid ${bellOpen ? "rgba(239,68,68,0.5)" : alertHistory.length > 0 ? "rgba(239,68,68,0.25)" : T.border}`,
+            cursor:"pointer", transition:"all 0.2s",
+            animation: unreadCount > 0 ? "bellShake 0.5s ease" : "none",
           }}>
-            <IcoBell size={15} color={T.red}/>
-            <div style={{ position:"absolute", top:4, right:4, width:8, height:8, borderRadius:"50%", background:T.red, animation:"pulse 1.5s infinite", fontSize:6, display:"flex", alignItems:"center", justifyContent:"center", color:"#000", fontWeight:700 }}>{alertCount}</div>
+            <IcoBell size={15} color={alertHistory.length > 0 ? T.red : T.textMid}/>
           </div>
-        )}
+
+          {/* Unread badge */}
+          {unreadCount > 0 && (
+            <div style={{
+              position:"absolute", top:-4, right:-4,
+              minWidth:16, height:16, borderRadius:8,
+              background:T.red, color:"#fff",
+              fontSize:8, fontWeight:700, fontFamily:T.fontDisp,
+              display:"flex", alignItems:"center", justifyContent:"center",
+              padding:"0 4px",
+              animation:"badgePop 0.3s cubic-bezier(0.16,1,0.3,1)",
+              border:"2px solid #0a0a0c",
+              boxShadow:`0 0 8px ${T.red}88`,
+            }}>{unreadCount > 9 ? "9+" : unreadCount}</div>
+          )}
+
+          {/* Dropdown panel */}
+          {bellOpen && (
+            <div style={{
+              position:"absolute", top:44, right:0,
+              width:340, maxHeight:440,
+              background:"rgba(10,10,12,0.97)", border:`1px solid ${T.border}`,
+              borderRadius:16, overflow:"hidden",
+              backdropFilter:"blur(24px)",
+              boxShadow:"0 24px 80px rgba(0,0,0,0.7), 0 0 40px rgba(239,68,68,0.1)",
+              animation:"fadeInUp 0.25s cubic-bezier(0.16,1,0.3,1)",
+              zIndex:200, fontFamily:T.font,
+            }}>
+              {/* Panel header */}
+              <div style={{ padding:"14px 16px 12px", borderBottom:`1px solid ${T.border}`, display:"flex", alignItems:"center", justifyContent:"space-between", background:"rgba(239,68,68,0.05)" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                  <IcoAlert size={12} color={T.red}/>
+                  <span style={{ fontSize:9, letterSpacing:"0.16em", color:T.text, fontWeight:700 }}>CRITICAL ALERTS</span>
+                  <span style={{ padding:"1px 6px", borderRadius:4, background:"rgba(239,68,68,0.15)", border:"1px solid rgba(239,68,68,0.3)", fontSize:8, color:T.red, fontWeight:700 }}>{alertHistory.length}</span>
+                </div>
+                <span style={{ fontSize:8, letterSpacing:"0.1em", color:T.textDim }}>HIGH IMPACT ONLY</span>
+              </div>
+
+              {/* Notification list */}
+              <div style={{ overflowY:"auto", maxHeight:370 }}>
+                {alertHistory.length === 0 ? (
+                  <div style={{ padding:"32px 20px", textAlign:"center" }}>
+                    <div style={{ fontSize:24, marginBottom:8 }}>🔕</div>
+                    <div style={{ fontSize:10, color:T.textDim, letterSpacing:"0.1em" }}>NO ALERTS YET</div>
+                    <div style={{ fontSize:9, color:"#333", marginTop:4, lineHeight:1.6 }}>Only critical market events<br/>will appear here</div>
+                  </div>
+                ) : alertHistory.map((ev, i) => (
+                  <div key={`${ev.uid}-${i}`} style={{
+                    padding:"12px 16px",
+                    borderBottom:`1px solid rgba(255,255,255,0.04)`,
+                    background: i === 0 ? `${ev.color}06` : "transparent",
+                    transition:"background 0.2s", cursor:"default",
+                    position:"relative", overflow:"hidden",
+                  }}
+                    onMouseEnter={e => e.currentTarget.style.background=`${ev.color}08`}
+                    onMouseLeave={e => e.currentTarget.style.background = i===0 ? `${ev.color}06` : "transparent"}>
+
+                    {/* Left severity bar */}
+                    <div style={{ position:"absolute", left:0, top:10, bottom:10, width:2, borderRadius:2, background:ev.color }}/>
+
+                    <div style={{ paddingLeft:10 }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:8, marginBottom:5 }}>
+                        <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+                          <span style={{ fontSize:13 }}>{ev.icon}</span>
+                          <div>
+                            <div style={{ fontSize:9, fontWeight:700, color:ev.color, letterSpacing:"0.1em", marginBottom:1 }}>{ev.severity} · {ev.category}</div>
+                            <div style={{ fontSize:11, fontWeight:700, color:T.text, fontFamily:T.fontDisp, lineHeight:1.3 }}>{ev.title}</div>
+                          </div>
+                        </div>
+                        <span style={{ fontSize:8, color:T.textDim, whiteSpace:"nowrap", flexShrink:0 }}>{ev.firedAt ? timeAgo(ev.firedAt) : "just now"}</span>
+                      </div>
+
+                      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:6 }}>
+                        <div style={{ fontSize:8, color:T.textDim }}>
+                          <span style={{ color:"#555" }}>IMPACT </span>
+                          <span style={{ color:ev.color, fontWeight:700 }}>{ev.impact}</span>
+                        </div>
+                        <div style={{ fontSize:8, color:T.textDim }}>
+                          <span style={{ color:"#555" }}>ACTION </span>
+                          <span style={{ color:T.amber, fontWeight:700 }}>{ev.action}</span>
+                        </div>
+                      </div>
+
+                      <div style={{ marginTop:5, fontSize:8, color:"#555", letterSpacing:"0.06em" }}>
+                        Affected: <span style={{ color:"#777" }}>{ev.affected}</span>
+                      </div>
+                    </div>
+
+                    {/* "NEW" tag for first item */}
+                    {i === 0 && (
+                      <div style={{ position:"absolute", top:10, right:12, padding:"1px 6px", borderRadius:3, background:`${ev.color}20`, border:`1px solid ${ev.color}50`, fontSize:7, fontWeight:700, color:ev.color, letterSpacing:"0.12em" }}>NEW</div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Footer */}
+              {alertHistory.length > 0 && (
+                <div style={{ padding:"10px 16px", borderTop:`1px solid ${T.border}`, display:"flex", justifyContent:"space-between", alignItems:"center", background:"rgba(255,255,255,0.01)" }}>
+                  <span style={{ fontSize:8, color:T.textDim, letterSpacing:"0.08em" }}>{alertHistory.length} event{alertHistory.length!==1?"s":""} logged this session</span>
+                  <span onClick={() => onNavigate("markets")} style={{ fontSize:8, color:T.emerald, cursor:"pointer", letterSpacing:"0.1em" }}>VIEW MARKETS →</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
         <button style={{ display:"flex", alignItems:"center", gap:8, padding:"8px 16px", borderRadius:10, background:"rgba(255,255,255,0.05)", border:`1px solid ${T.border}`, color:T.text, fontSize:11, letterSpacing:"0.08em", cursor:"pointer", fontFamily:T.font }}>
           <IcoGoogle/> Connect Google
         </button>
@@ -379,10 +1248,11 @@ function HomePage({ onNavigate }) {
   const words = ["Wealth.", "Alpha.", "Edge.", "Legacy."];
 
   const navCards = [
-    { page:"markets",   icon:"📈", label:"LIVE INTELLIGENCE", title:"Markets & Prediction Arena",   desc:"Real-time charts, AI prediction overlays, drastic event alerts, and global market intelligence feed." },
-    { page:"learn",     icon:"🧠", label:"ADAPTIVE LEARNING",  title:"Learning & Financial IQ",       desc:"Personalised education tracks, Financial IQ scoring, achievement badges, and performance analytics." },
-    { page:"portfolio", icon:"🎯", label:"INTELLIGENCE DASHBOARD", title:"Portfolio Intelligence",   desc:"Asset allocation breakdown, risk exposure meter, and AI-driven portfolio rebalancing recommendations." },
-    { page:"ai",        icon:"⚡", label:"AI ADVISOR",         title:"Nexus AI Strategist",           desc:"GPT-4o powered financial advisor with live market context, portfolio awareness, and 24/7 availability." },
+    { page:"markets",    icon:"📈", label:"LIVE INTELLIGENCE",     title:"Markets & Prediction Arena",   desc:"Real-time charts, AI prediction overlays, drastic event alerts, and global market intelligence feed." },
+    { page:"learn",      icon:"🧠", label:"ADAPTIVE LEARNING",      title:"Learning & Financial IQ",       desc:"Personalised education tracks, Financial IQ scoring, achievement badges, and performance analytics." },
+    { page:"assessment", icon:"🎯", label:"SELF-ASSESSMENT",        title:"User vs AI Prediction Arena",   desc:"Test your market analysis skills against Nexus AI across real-world scenarios. Earn XP and discover your edge." },
+    { page:"portfolio",  icon:"🏦", label:"INTELLIGENCE DASHBOARD", title:"Portfolio Intelligence",        desc:"Asset allocation breakdown, risk exposure meter, and AI-driven portfolio rebalancing recommendations." },
+    { page:"ai",         icon:"⚡", label:"AI ADVISOR",             title:"Nexus AI Strategist",           desc:"GPT-4o powered financial advisor with live market context, portfolio awareness, and 24/7 availability." },
   ];
 
   return (
@@ -552,9 +1422,9 @@ function AiNewsPulse({ alertCount, onTriggerAlert }) {
         </div>
       )}
 
-      {/* Trigger alert button */}
+      {/* Trigger alert button — high-impact events only */}
       <button onClick={onTriggerAlert} style={{ marginTop:12, padding:"8px 14px", borderRadius:10, background:"rgba(239,68,68,0.08)", border:"1px solid rgba(239,68,68,0.25)", color:T.red, fontSize:9, letterSpacing:"0.12em", cursor:"pointer", display:"flex", alignItems:"center", gap:6, fontFamily:T.font }}>
-        <IcoAlert size={11}/> SIMULATE DRASTIC EVENT ALERT
+        <IcoAlert size={11}/> SIMULATE CRITICAL EVENT ALERT
       </button>
     </div>
   );
@@ -1100,22 +1970,34 @@ export default function NexusFI() {
   const [alertHistory, setAlertHistory] = useState([]);
   const [eventIdx, setEventIdx] = useState(0);
 
-  // Trigger alerts periodically on markets page
+  // Only surface CRITICAL / HIGH urgency events (urgency >= 8) as overlay notifications
+  const HIGH_IMPACT_EVENTS = DRASTIC_EVENTS.filter(e => e.urgency >= 8);
+
   const fireAlert = useCallback(() => {
     setEventIdx(i => {
-      const idx = i % DRASTIC_EVENTS.length;
-      const ev = { ...DRASTIC_EVENTS[idx], uid: Date.now() };
-      setActiveAlerts(prev => [...prev.filter(a => a.uid !== ev.uid), ev]);
-      setAlertHistory(h => [ev, ...h].slice(0, 20));
+      const idx = i % HIGH_IMPACT_EVENTS.length;
+      const ev = { ...HIGH_IMPACT_EVENTS[idx], uid: Date.now(), firedAt: Date.now() };
+      setActiveAlerts(prev => [...prev.filter(a => a.id !== ev.id), ev]);
+      setAlertHistory(h => [ev, ...h].slice(0, 50));
       return idx + 1;
     });
   }, []);
 
   useEffect(() => {
     const first = setTimeout(() => fireAlert(), 4000);
-    const loop = setInterval(() => fireAlert(), 25000);
+    const loop  = setInterval(() => fireAlert(), 28000);
     return () => { clearTimeout(first); clearInterval(loop); };
   }, [fireAlert]);
+
+  // Auto-dismiss overlays after 7 seconds — alert remains in bell history
+  const activeUids = activeAlerts.map(a => a.uid).join(",");
+  useEffect(() => {
+    if (activeAlerts.length === 0) return;
+    const timers = activeAlerts.map(ev =>
+      setTimeout(() => setActiveAlerts(prev => prev.filter(a => a.uid !== ev.uid)), 7000)
+    );
+    return () => timers.forEach(clearTimeout);
+  }, [activeUids]);
 
   const dismissAlert = (uid) => setActiveAlerts(prev => prev.filter(a => a.uid !== uid));
 
@@ -1144,6 +2026,10 @@ export default function NexusFI() {
         @keyframes iconPulse   { 0%,100%{transform:scale(1);box-shadow:0 0 12px currentColor} 50%{transform:scale(1.08);box-shadow:0 0 24px currentColor} }
         @keyframes flashBorder { 0%,100%{border-color:rgba(239,68,68,0.35)} 50%{border-color:rgba(239,68,68,0.7)} }
         @keyframes slideInRight{ from{opacity:0;transform:translateX(24px) scale(0.96)} to{opacity:1;transform:translateX(0) scale(1)} }
+        @keyframes slideOutRight{ from{opacity:1;transform:translateX(0) scale(1)} to{opacity:0;transform:translateX(32px) scale(0.94)} }
+        @keyframes timerDrain  { from{width:100%} to{width:0%} }
+        @keyframes bellShake   { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-14deg)} 40%{transform:rotate(14deg)} 60%{transform:rotate(-8deg)} 80%{transform:rotate(8deg)} }
+        @keyframes badgePop    { 0%{transform:scale(0)} 70%{transform:scale(1.2)} 100%{transform:scale(1)} }
       `}</style>
 
       <div style={{ background:"#0a0a0c", color:T.text, fontFamily:T.font, minHeight:"100vh", position:"relative", overflowX:"hidden" }}>
@@ -1157,48 +2043,24 @@ export default function NexusFI() {
         </div>
 
         <div style={{ position:"relative", zIndex:1 }}>
-          <Nav activePage={page} onNavigate={navigate} alertCount={activeAlerts.length}/>
+          <Nav activePage={page} onNavigate={navigate} alertCount={activeAlerts.length} alertHistory={alertHistory} onClearUnread={() => {}}/>
 
-          {page === "home"      && <HomePage onNavigate={navigate}/>}
-          {page === "markets"   && <MarketsPage onTriggerAlert={fireAlert} alertCount={activeAlerts.length}/>}
-          {page === "learn"     && <LearnPage/>}
-          {page === "portfolio" && <PortfolioPage/>}
-          {page === "ai"        && <AIStrategyPage/>}
+          {page === "home"       && <HomePage onNavigate={navigate}/>}
+          {page === "markets"    && <MarketsPage onTriggerAlert={fireAlert} alertCount={activeAlerts.length}/>}
+          {page === "learn"      && <LearnPage/>}
+          {page === "assessment" && <AssessmentPage/>}
+          {page === "portfolio"  && <PortfolioPage/>}
+          {page === "ai"         && <AIStrategyPage/>}
 
           {page !== "ai" && <Footer onNavigate={navigate}/>}
         </div>
 
-        {/* Alert overlays */}
+        {/* Alert overlays — auto-dismiss after 7s */}
         {activeAlerts.map((ev, i) => (
           <div key={ev.uid} style={{ position:"fixed", zIndex:9999, top:76+(i*8), right:20+(i*4) }}>
             <DrasticAlertOverlay event={ev} onDismiss={() => dismissAlert(ev.uid)}/>
           </div>
         ))}
-
-        {/* Alert history log */}
-        {alertHistory.length > 0 && (
-          <div style={{ position:"fixed", bottom:20, left:20, zIndex:300, width:240, fontFamily:T.font, animation:"fadeInUp 0.4s ease" }}>
-            <div style={{ background:"rgba(12,12,14,0.94)", border:`1px solid ${T.border}`, borderRadius:12, overflow:"hidden", backdropFilter:"blur(20px)" }}>
-              <div style={{ padding:"8px 12px 6px", borderBottom:`1px solid ${T.border}`, display:"flex", alignItems:"center", gap:6 }}>
-                <IcoAlert size={10} color={T.amber}/>
-                <span style={{ fontSize:7, letterSpacing:"0.14em", color:T.amber }}>ALERT HISTORY</span>
-                <span style={{ marginLeft:"auto", fontSize:7, color:T.textDim }}>{alertHistory.length} events</span>
-              </div>
-              <div style={{ maxHeight:140, overflowY:"auto" }}>
-                {alertHistory.slice(0,4).map((h,i) => (
-                  <div key={`${h.uid}-${i}`} style={{ padding:"6px 12px", borderBottom:`1px solid rgba(255,255,255,0.04)`, display:"flex", alignItems:"flex-start", gap:6 }}>
-                    <span style={{ fontSize:10, flexShrink:0 }}>{h.icon}</span>
-                    <div style={{ flex:1, minWidth:0 }}>
-                      <div style={{ fontSize:7, color:h.color, fontWeight:700, letterSpacing:"0.08em", marginBottom:1 }}>{h.severity} · {h.title}</div>
-                      <div style={{ fontSize:6, color:T.textDim, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{h.affected}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {alertHistory.length > 4 && <div style={{ padding:"5px 12px", fontSize:7, color:T.textDim, textAlign:"center", borderTop:`1px solid ${T.border}` }}>+{alertHistory.length-4} more in log</div>}
-            </div>
-          </div>
-        )}
       </div>
     </>
   );
