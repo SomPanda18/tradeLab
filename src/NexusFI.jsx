@@ -129,7 +129,9 @@ function AuthModal({ isOpen, onClose, onAuthSuccess, initialMode = 'login' }) {
       : { name: formData.name, email: formData.email, password: formData.password };
 
     try {
-      const res = await fetch(`${API_BASE}${endpoint}`, {
+      const url = `${API_BASE}${endpoint}`;
+      console.log(`Attempting auth: ${url}`);
+      const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -146,7 +148,7 @@ function AuthModal({ isOpen, onClose, onAuthSuccess, initialMode = 'login' }) {
         setError("Account created! Please login.");
       }
     } catch (err) {
-      setError(err.message);
+      setError(`${err.message} (${API_BASE})`);
     } finally {
       setLoading(false);
     }
