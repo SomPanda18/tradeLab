@@ -23,8 +23,6 @@ exports.register = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
-// controllers/authController.js
-// ... (keep your register code from before)
 
 exports.login = async (req, res) => {
     try {

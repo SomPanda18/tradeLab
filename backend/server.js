@@ -10,6 +10,13 @@ const { broadcastMarketData } = require('./services/marketService');
 const { generateFinancialAdvice } = require('./services/aiService');
 
 dotenv.config();
+
+// Validate critical environment variables
+if (!process.env.JWT_SECRET) {
+  console.error('ERROR: JWT_SECRET is not set in environment variables');
+  process.exit(1);
+}
+
 connectDB();
 
 const app = express();
@@ -32,16 +39,24 @@ io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
   socket.on('ai_chat_message', async (data) => {
-    const { message, stats, history } = data;
+    try {
+      const { message, stats, history } = data;
 
-    const contextData = `Risk ${stats?.riskScore || 'N/A'}/100, Holdings: ${stats?.topHoldings || 'N/A'}, Market: ${stats?.marketTrend || 'N/A'}`;
+      const contextData = `Risk ${stats?.riskScore || 'N/A'}/100, Holdings: ${stats?.topHoldings || 'N/A'}, Market: ${stats?.marketTrend || 'N/A'}`;
 
-    const aiResponse = await generateFinancialAdvice(message, history, contextData);
+      const aiResponse = await generateFinancialAdvice(message, history, contextData);
 
-    socket.emit('ai_chat_response', {
-      role: "ai",
-      text: aiResponse
-    });
+      socket.emit('ai_chat_response', {
+        role: "ai",
+        text: aiResponse
+      });
+    } catch (err) {
+      console.error('AI chat error:', err.message);
+      socket.emit('ai_chat_response', {
+        role: "ai",
+        text: "Connection to strategy core lost. Please try again shortly."
+      });
+    }
   });
 
   socket.on('disconnect', () => {

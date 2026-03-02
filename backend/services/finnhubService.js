@@ -4,6 +4,12 @@ const axios = require('axios');
 const FINNHUB_BASE = 'https://finnhub.io/api/v1';
 const API_KEY = process.env.FINNHUB_API_KEY;
 
+// Validate API key exists
+if (!API_KEY) {
+  console.error('ERROR: FINNHUB_API_KEY is not set in environment variables');
+  process.exit(1);
+}
+
 // In-memory cache with TTL
 const cache = new Map();
 const CACHE_TTL = 30000; // 30 seconds

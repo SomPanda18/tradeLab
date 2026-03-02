@@ -1,6 +1,12 @@
 // services/aiService.js
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+// Validate API key exists
+if (!process.env.GOOGLE_API_KEY) {
+  console.error('ERROR: GOOGLE_API_KEY is not set in environment variables');
+  process.exit(1);
+}
+
 // Access your API key from .env
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
